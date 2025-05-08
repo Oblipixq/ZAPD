@@ -55,7 +55,6 @@ def read_vhi_from_csv(directory):
                 print(f"Помилка при зчитуванні файлу {filename}: {e}")
     return pd.concat(data_frames, ignore_index=True) if data_frames else pd.DataFrame()
 
-# --- Завантаження даних ---
 directory = os.path.join(os.path.dirname(__file__), 'csvfiles')
 df = read_vhi_from_csv(directory)
 
@@ -81,7 +80,6 @@ for key, value in default_state.items():
 
 
 
-# --- Інтерактив ---
 vhi_options = ["VCI", "TCI", "VHI"]
 available_area_names = [area_dict[aid] for aid in sorted(df['area_ID'].unique())]
 
@@ -110,20 +108,20 @@ with col1:
 
     
 
-# --- Фільтрація ---
+
 filtered_df = df[
     (df['area_ID'] == selected_area) &
     (df['week'].between(*week_range)) &
     (df['year'].between(*year_range))
 ]
 
-# --- Сортування ---
+
 if ascending:
     filtered_df = filtered_df.sort_values(by=selected_index, ascending=True)
 elif descending:
     filtered_df = filtered_df.sort_values(by=selected_index, ascending=False)
 
-# --- Вкладки ---
+
 with col2:
     tab1, tab2, tab3 = st.tabs(["Таблиця", "Графік", "Порівняння"])
 
